@@ -38,9 +38,11 @@
       <img src="assets/Extra_credit_note.png" alt="Extra Credit! Leave a nice review in the guestbook!" />
     </div>
 
-    <!-- Center-left: suggestion box (big) -->
+    <!-- Center-left: suggestion box (big) - click to toggle pink version -->
     <div class="item suggestion">
-      <img src="assets/suggestio_box.png" alt="Suggestion Box" />
+      <img id="suggestion-img" src="assets/suggestio_box.png" alt="Suggestion Box"
+           data-normal="assets/suggestio_box.png"
+           data-pink="assets/suggestio_box_pink.png" />
     </div>
 
     <!-- Center-right: bot RP folder -->
@@ -59,11 +61,68 @@
       <img src="assets/red_clipboard_cropped.jpg" alt="" />
     </div>
 
+    <!-- Decorative graffiti scribbled on the desk -->
+    <div class="item graffiti-cat">
+      <img src="assets/cat_graffiti.png" alt="" />
+    </div>
+    <div class="item graffiti-study">
+      <img src="assets/study_hard_graffiti.png" alt="" />
+    </div>
+    <div class="item graffiti-cat-2">
+      <img src="assets/cat_graffiti.png" alt="" />
+    </div>
+    <div class="item graffiti-study-2">
+      <img src="assets/study_hard_graffiti.png" alt="" />
+    </div>
+
+    <!-- Star stickers -->
+    <div class="item star">
+      <img src="assets/gold_star_glitter.png" alt="" />
+    </div>
+    <div class="item star-2">
+      <img src="assets/gold_star_glitter.png" alt="" />
+    </div>
+    <div class="item star-3">
+      <img src="assets/gold_star_glitter.png" alt="" />
+    </div>
+    <div class="item star-4">
+      <img src="assets/gold_star_glitter.png" alt="" />
+    </div>
+
+    <!-- Lipstick kisses -->
+    <div class="item kiss">
+      <img src="assets/glitter_kiss.png" alt="" />
+    </div>
+    <div class="item kiss-3">
+      <img src="assets/glitter_kiss.png" alt="" />
+    </div>
+
   </main>
+
+  <script>
+    // Toggle the suggestion box between its normal and pink versions on click.
+    (function () {
+      var img = document.getElementById('suggestion-img');
+      if (!img) return;
+      img.addEventListener('click', function () {
+        var pink = img.getAttribute('data-pink');
+        var normal = img.getAttribute('data-normal');
+        var current = img.getAttribute('src');
+        img.setAttribute('src', current.indexOf('pink') !== -1 ? normal : pink);
+      });
+    })();
+  </script>
 
   <!-- Bottom of the page: rainbow crayon scribble, below everything -->
   <footer class="crayon">
-    <img src="assets/crayon_rainboy.png" alt="" />
+    <img class="scribble" src="assets/crayon_rainboy.png" alt="" />
+    <!-- The crayon mid-draw: tip touching the scribble -->
+    <img class="red-crayon" src="assets/red_crayon.png" alt="" />
+    <!-- More crayons scattered around, recoloured via hue-rotate -->
+    <img class="crayon-bit c-blue"   src="assets/red_crayon.png" alt="" />
+    <img class="crayon-bit c-green"  src="assets/red_crayon.png" alt="" />
+    <img class="crayon-bit c-purple" src="assets/red_crayon.png" alt="" />
+    <img class="crayon-bit c-yellow" src="assets/red_crayon.png" alt="" />
   </footer>
 </body>
 </html>
