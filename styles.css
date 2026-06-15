@@ -1,0 +1,145 @@
+/* ===== Mr. Thorm's Classroom — homepage (iteration 1) ===== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Patrick Hand", "Comic Sans MS", cursive;
+  /* Dark walnut desk with subtle vertical wood grain */
+  background-color: #2e2014;
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px,
+      rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px,
+      transparent 4px, transparent 26px),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 2px,
+      transparent 2px, transparent 230px),
+    linear-gradient(180deg, #4a3422 0%, #35251643 40%, #241809 100%);
+  background-attachment: fixed;
+}
+
+/* The desk canvas: a 16:10-ish stage that the objects sit on.
+   On desktop, items are absolutely positioned to match the mockup.
+   On mobile, the canvas relaxes and items stack (see media query). */
+.desk {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  aspect-ratio: 1200 / 1380;
+  min-height: 1020px;
+}
+
+.item {
+  position: absolute;
+}
+
+.item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* soft drop shadow so paper objects lift off the desk */
+  filter: drop-shadow(3px 6px 6px rgba(0,0,0,0.55));
+}
+
+/* ---- placement (desktop), as % of the desk canvas ---- */
+
+.polaroid   { top: 1.4%; left: 1.5%; width: 19%; transform: rotate(-4deg); z-index: 5; }
+.header     { top: 0.7%; left: 23%;  width: 58%; z-index: 2; }
+.rules      { top: 12.3%; left: 67%; width: 31%; transform: rotate(3deg); z-index: 3; }
+
+.chalkboard { top: 14.5%; left: 22%; width: 56%; }
+.chalkboard img { filter: drop-shadow(4px 8px 8px rgba(0,0,0,0.6)); border-radius: 4px; }
+.chalk-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-1deg);
+  width: 74%;
+  text-align: center;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #f3f4ee;
+  font-size: clamp(0.7rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.extra      { top: 42%; left: 0%;   width: 26%; transform: rotate(-5deg); z-index: 2; }
+
+.suggestion { top: 43.5%; left: 14%; width: 42%; transform: rotate(-2deg); z-index: 1; }
+
+.clipboard  { top: 43.5%; left: 54%; width: 44%; transform: rotate(2deg); z-index: 1; }
+.botrp      { top: 46%; left: 56%;  width: 39%; transform: rotate(2deg); z-index: 2; }
+
+.gallery    { top: 84%; left: 30%;  width: 12%; transform: rotate(-3deg); z-index: 6; }
+.gallery-label {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  font-family: "Gloria Hallelujah", cursive;
+  color: #2b3a67;
+  font-size: clamp(0.6rem, 1.2vw, 1rem);
+}
+
+.clipboard img { border-radius: 4px; }
+
+/* Scribble footer: sits below the whole desk, centered at the bottom of the page */
+.crayon {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 0;
+}
+.crayon img {
+  display: inline-block;
+  width: 44%;
+  height: auto;
+  filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.4));
+}
+
+/* ---- hover lift on interactive-feeling objects ---- */
+.polaroid, .rules, .extra, .suggestion, .botrp, .gallery, .clipboard {
+  transition: transform 0.18s ease;
+}
+.polaroid:hover   { transform: rotate(-4deg) scale(1.03); }
+.rules:hover      { transform: rotate(3deg) scale(1.03); }
+.extra:hover      { transform: rotate(-5deg) scale(1.03); }
+.suggestion:hover { transform: rotate(-2deg) scale(1.02); }
+.botrp:hover      { transform: rotate(2deg) scale(1.02); }
+.gallery:hover    { transform: rotate(-3deg) scale(1.03); }
+.clipboard:hover  { transform: rotate(2deg) scale(1.02); }
+
+/* ============ Mobile: stack everything in reading order ============ */
+@media (max-width: 760px) {
+  .desk {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 24px 16px 40px;
+  }
+  .item {
+    position: static;
+    transform: none !important;
+    width: min(85%, 360px);
+  }
+  .header     { order: 1; width: min(95%, 480px); }
+  .polaroid   { order: 2; width: min(55%, 220px); }
+  .chalkboard { order: 3; width: min(90%, 460px); }
+  .rules      { order: 4; width: min(70%, 300px); }
+  .suggestion { order: 5; }
+  .botrp      { order: 6; }
+  .extra      { order: 7; width: min(55%, 220px); }
+  .gallery    { order: 8; width: min(55%, 220px); }
+  .clipboard  { order: 9; }
+  .crayon     { order: 10; width: min(90%, 460px); }
+}
