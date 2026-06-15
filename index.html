@@ -12,11 +12,6 @@
 <body>
   <main class="desk">
 
-    <!-- Top-left: polaroid photo -->
-    <div class="item polaroid">
-      <img src="assets/polaroid.png" alt="Jackson Thorm - your teacher" />
-    </div>
-
     <!-- Top-center: torn header banner -->
     <div class="item header">
       <img src="assets/Header.png" alt="Mr. Thorm's Classroom" />
@@ -27,22 +22,31 @@
       <img src="assets/rules_note.png" alt="Rules! Be respectful. All topics OK! Leave your insecurities at the door!" />
     </div>
 
-    <!-- Center: chalkboard with intro -->
-    <div class="item chalkboard">
-      <img src="assets/chalkboard.jpg" alt="" />
-      <p class="chalk-text">Welcome to my classroom &mdash; pull up a chair and stay a while.</p>
+    <!-- Board + polaroid (side by side on mobile) -->
+    <div class="board-row">
+      <!-- polaroid photo -->
+      <div class="item polaroid">
+        <img src="assets/polaroid.png" alt="Jackson Thorm - your teacher" />
+      </div>
+      <!-- chalkboard with intro -->
+      <div class="item chalkboard">
+        <img src="assets/chalkboard.jpg" alt="" />
+        <p class="chalk-text">Welcome to my classroom &mdash; pull up a chair and stay a while.</p>
+      </div>
     </div>
 
-    <!-- Left: extra credit note -->
-    <div class="item extra">
-      <img src="assets/Extra_credit_note.png" alt="Extra Credit! Leave a nice review in the guestbook!" />
-    </div>
-
-    <!-- Center-left: suggestion box (big) - click to toggle pink version -->
-    <div class="item suggestion">
-      <img id="suggestion-img" src="assets/suggestio_box.png" alt="Suggestion Box"
-           data-normal="assets/suggestio_box.png"
-           data-pink="assets/suggestio_box_pink.png" />
+    <!-- Suggestion box (+ extra credit attached next to it) -->
+    <div class="sugg-row">
+      <!-- suggestion box (big) - click to toggle pink version -->
+      <div class="item suggestion">
+        <img id="suggestion-img" src="assets/suggestio_box.png" alt="Suggestion Box"
+             data-normal="assets/suggestio_box.png"
+             data-pink="assets/suggestio_box_pink.png" />
+      </div>
+      <!-- extra credit note -->
+      <div class="item extra">
+        <img src="assets/Extra_credit_note.png" alt="Extra Credit! Leave a nice review in the guestbook!" />
+      </div>
     </div>
 
     <!-- Center-right: bot RP folder -->

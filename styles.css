@@ -39,6 +39,9 @@ body {
   position: absolute;
 }
 
+/* Layout wrappers used only on mobile; transparent to the desktop layout */
+.board-row, .sugg-row { display: contents; }
+
 .item img {
   display: block;
   width: 100%;
@@ -80,10 +83,10 @@ body {
 .gallery    { top: 84%; left: 15%;  width: 15%; transform: rotate(-3deg); z-index: 6; }
 
 /* Decorative graffiti — chalk doodles sitting on the desk, behind the paper */
-.graffiti-cat    { top: 85%; left: 0%;  width: 11%; z-index: 0; opacity: 0.85; transform: rotate(6deg) scaleX(1.25); }
-.graffiti-study  { top: 91%; left: 30%; width: 27%; z-index: 0; opacity: 0.85; transform: rotate(-7deg) scaleY(0.8); }
-.graffiti-cat-2  { top: 29%; left: 1%;  width: 16%; z-index: 0; opacity: 0.8;  transform: rotate(-15deg) scaleY(1.35); }
-.graffiti-study-2{ top: 73%; left: 0%;  width: 17%; z-index: 0; opacity: 0.8;  transform: rotate(9deg) scaleX(1.4); }
+.graffiti-cat    { top: 85%; left: 0%;  width: 12%; z-index: 0; opacity: 0.85; transform: rotate(6deg) scaleX(1.1); }
+.graffiti-study  { top: 91%; left: 30%; width: 26%; z-index: 0; opacity: 0.85; transform: rotate(-7deg) scaleY(0.92); }
+.graffiti-cat-2  { top: 29%; left: 1%;  width: 15%; z-index: 0; opacity: 0.8;  transform: rotate(-15deg) scaleY(1.12); }
+.graffiti-study-2{ top: 73%; left: 0%;  width: 18%; z-index: 0; opacity: 0.8;  transform: rotate(9deg) scaleX(1.12); }
 .graffiti-cat img, .graffiti-study img,
 .graffiti-cat-2 img, .graffiti-study-2 img { filter: none; }
 
@@ -94,8 +97,8 @@ body {
 .star-4 { top: 85%; left: 74%; width: 4.5%; z-index: 4; transform: rotate(18deg); }
 
 /* Lipstick kisses (blended onto the desk so only the glitter shows) */
-.kiss   { top: 2%;  left: 86%; width: 13%; z-index: 0; transform: rotate(18deg) scaleX(1.2); }
-.kiss-3 { top: 79%; left: 33%; width: 11%; z-index: 0; transform: rotate(11deg) scaleX(1.45); }
+.kiss   { top: 2%;  left: 86%; width: 12%; z-index: 0; transform: rotate(16deg) scaleX(1.06); }
+.kiss-3 { top: 79%; left: 33%; width: 10%; z-index: 0; transform: rotate(10deg) scaleX(1.04); }
 .kiss img, .kiss-3 img { mix-blend-mode: screen; filter: none; }
 .gallery-label {
   position: absolute;
@@ -174,7 +177,7 @@ body {
 .gallery:hover    { transform: rotate(-3deg) scale(1.03); }
 .clipboard:hover  { transform: rotate(2deg) scale(1.02); }
 
-/* ============ Mobile: stack everything in reading order ============ */
+/* ============ Mobile: dedicated stacked layout ============ */
 @media (max-width: 760px) {
   .desk {
     aspect-ratio: auto;
@@ -183,21 +186,61 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 22px;
-    padding: 24px 16px 40px;
+    padding: 22px 14px 28px;
   }
-  .item {
-    position: static;
-    transform: none !important;
-    width: min(85%, 360px);
+
+  /* Reset desk objects to flow */
+  .item { position: static; }
+
+  /* 1) Header on top */
+  .header { order: 1; width: min(96%, 460px); transform: none; }
+
+  /* 2) Board with the polaroid on its side */
+  .board-row {
+    display: flex;
+    order: 2;
+    width: min(98%, 460px);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
-  .header     { order: 1; width: min(95%, 480px); }
-  .polaroid   { order: 2; width: min(55%, 220px); }
-  .chalkboard { order: 3; width: min(90%, 460px); }
-  .rules      { order: 4; width: min(70%, 300px); }
-  .suggestion { order: 5; }
-  .botrp      { order: 6; }
-  .extra      { order: 7; width: min(55%, 220px); }
-  .gallery    { order: 8; width: min(55%, 220px); }
-  .clipboard  { order: 9; }
-  .crayon     { order: 10; width: min(90%, 460px); }
+  .board-row .polaroid   { width: 34%; transform: rotate(-3deg); }
+  .board-row .chalkboard { width: 64%; transform: none; }
+
+  /* 3) Bigger suggestion box with the extra-credit note attached next to it */
+  .sugg-row {
+    display: block;
+    position: relative;
+    order: 3;
+    width: min(94%, 430px);
+  }
+  .sugg-row .suggestion { width: 100%; transform: rotate(-2deg); }
+  .sugg-row .extra {
+    position: absolute;
+    top: -3%;
+    left: auto;
+    right: -7%;
+    width: 40%;
+    transform: rotate(6deg);
+    z-index: 3;
+  }
+
+  /* 4) Bot RP under the suggestion box */
+  .botrp { order: 4; width: min(82%, 360px); transform: rotate(1deg); }
+
+  /* 5) Gallery near the bottom */
+  .gallery { order: 5; width: min(48%, 200px); transform: rotate(-3deg); }
+
+  /* Removed on mobile: rules, clipboard, and all loose decorations */
+  .rules, .clipboard,
+  .graffiti-cat, .graffiti-study, .graffiti-cat-2, .graffiti-study-2,
+  .star, .star-2, .star-3, .star-4,
+  .kiss, .kiss-3 { display: none; }
+
+  /* 6) Crayons + scribble on the bottom */
+  .crayon { padding: 4px 0 26px; }
+  .crayon .scribble   { width: 72%; }
+  .crayon .red-crayon { width: 40%; left: 5%;  bottom: 4px; }
+  .crayon .c-blue     { width: 34%; left: 60%; bottom: 6px; }
+  .crayon .c-green, .crayon .c-purple, .crayon .c-yellow { display: none; }
 }
